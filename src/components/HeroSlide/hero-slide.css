@@ -1,0 +1,226 @@
+.hero-slider {
+  height: 100vh;
+  max-height: 1080px;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 50px;
+  margin-top: calc(100px * -1);
+}
+
+@media screen and (min-width: 768px) {
+  .hero-slider {
+    margin-top: calc(70px * -1);
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .hero-slider {
+    margin-top: calc(40px * -1);
+  }
+}
+
+.hero-slider__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .hero-slider__item {
+    flex-direction: column-reverse;
+    padding-top: 70px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .hero-slider__item {
+    padding-top: unset;
+    padding-bottom: 40px;
+  }
+}
+
+.hero-slider__item.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: visible;
+}
+
+.hero-slider__item__info {
+  width: 58.33%;
+}
+
+@media screen and (min-width: 768px) {
+  .hero-slider__item__info {
+    width: 100%;
+    flex-grow: 1;
+  }
+}
+
+.hero-slider__item__info__title,
+.hero-slider__item__info__description {
+  margin-bottom: 60px;
+}
+
+@media screen and (min-width: 768px) {
+
+  .hero-slider__item__info__title,
+  .hero-slider__item__info__description {
+    margin-bottom: 15px;
+  }
+}
+
+.hero-slider__item__info__title {
+  font-family: "M PLUS Rounded 1c", sans-serif;
+  font-weight: 600;
+  font-size: 4.5rem;
+  line-height: 6.75rem;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 576px) {
+  .hero-slider__item__info__title {
+    font-size: 2.5rem;
+    line-height: 3.75rem;
+  }
+}
+
+.hero-slider__item__info__description {
+  color: #8d8d8d;
+  font-size: 1.5rem;
+  line-height: 2.25rem;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 576px) {
+  .hero-slider__item__info__description {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+}
+
+.hero-slider__item__info__btn {
+  overflow: hidden;
+}
+
+.hero-slider__item__info__title>span,
+.hero-slider__item__info__description>span,
+.hero-slider__item__info__btn button {
+  display: block;
+  transform: translateY(-100%);
+  transition: transform 0.5s ease;
+}
+
+.hero-slider__item.active .hero-slider__item__info__title>span,
+.hero-slider__item.active .hero-slider__item__info__description>span,
+.hero-slider__item.active .hero-slider__item__info__btn button {
+  transform: translateY(0);
+}
+
+.hero-slider__item__image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  position: relative;
+  height: 100%;
+  z-index: 99;
+  pointer-events: none;
+}
+
+@media screen and (min-width: 768px) {
+  .hero-slider__item__image {
+    width: 100%;
+    height: 60%;
+    z-index: 98;
+  }
+}
+
+.hero-slider__item__image img {
+  height: 100vh;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: scale(1) rotate(0);
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@media screen and (min-width: 768px) {
+  .hero-slider__item__image img {
+    height: 100%;
+    position: relative;
+  }
+}
+
+.hero-slider__item__image .shape {
+  height: 472px;
+  width: 472px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  border-radius: 58% 42% 38% 62% / 42% 55% 45% 58%;
+  transform: translate(0, -50%);
+  transition: border-radius 13s ease;
+  animation: border 10s infinite;
+}
+
+@media screen and (min-width: 768px) {
+  .hero-slider__item__image .shape {
+    height: 250px;
+    width: 250px;
+    right: 50%;
+    transform: translate(50%, -50%);
+  }
+}
+
+.hero-slider__item.active .hero-slider__item__image img {
+  transform: scale(1) rotate(0);
+}
+
+.hero-slider__control {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@media screen and (min-width: 768px) {
+  .hero-slider__control {
+    bottom: 20px;
+  }
+}
+
+.hero-slider__control__item~.hero-slider__control__item {
+  margin-left: 10px;
+}
+
+.hero-slider__control__item {
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.hero-slider__control__item:hover {
+  color: #4267b2;
+}
+
+.hero-slider__control__item .index {
+  font-size: 1.5rem;
+}
+
+@keyframes border {
+  0% {
+    border-radius: 58% 42% 38% 62% / 42% 55% 45% 58%;
+  }
+
+  50% {
+    border-radius: 31% 69% 59% 41% / 28% 24% 76% 72%;
+  }
+
+  100% {
+    border-radius: 58% 42% 38% 62% / 42% 55% 45% 58%;
+  }
+}
