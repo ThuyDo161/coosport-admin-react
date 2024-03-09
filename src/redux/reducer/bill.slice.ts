@@ -121,8 +121,10 @@ export const billsSlice = createSlice({
       const data = action.payload.bill;
       if (data && data.length > 0) {
         state.allBill = data;
-        state.loading = "succeeded";
+      } else {
+        state.allBill = [];
       }
+      state.loading = "succeeded";
     });
 
     builder.addCase(
@@ -145,11 +147,10 @@ export const billsSlice = createSlice({
         const data = action.payload.bill;
         if (data && data.length > 0) {
           state.allBill = data;
-          state.loading = "succeeded";
         } else {
           state.allBill = [];
-          state.loading = "succeeded";
         }
+        state.loading = "succeeded";
       }
     );
 

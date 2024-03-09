@@ -12,6 +12,7 @@ import supplierReducer from "./reducer/supplier.slice";
 import productModalReducer from "./reducer/products.slice";
 import userReducer from "./reducer/user.slice";
 import usersReducer from "./reducer/users.slice";
+import bannersReducer from "./reducer/banners.slice";
 
 export const store = configureStore({
   reducer: {
@@ -28,6 +29,7 @@ export const store = configureStore({
     receipt: receiptReducer,
     supplier: supplierReducer,
     users: usersReducer,
+    banners: bannersReducer,
   },
 });
 

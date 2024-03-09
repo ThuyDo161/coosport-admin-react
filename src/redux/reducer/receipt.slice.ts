@@ -115,8 +115,10 @@ export const receiptsSlice = createSlice({
         const data = action.payload.receipt;
         if (data && data.length > 0) {
           state.allReceipt = data;
-          state.loading = "succeeded";
+        } else {
+          state.allReceipt = [];
         }
+        state.loading = "succeeded";
       }
     );
 
@@ -130,7 +132,6 @@ export const receiptsSlice = createSlice({
         }
       }
     );
-
 
     builder.addCase(createReceipt.fulfilled, (state) => {
       state.loading = "idle";

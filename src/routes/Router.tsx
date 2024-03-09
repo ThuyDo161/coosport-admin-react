@@ -12,6 +12,7 @@ const Supplier = React.lazy(() => import("../View/Supplier/Supplier"));
 const Users = React.lazy(() => import("../View/Users/Users"));
 const ProductDetail = React.lazy(() => import("../View/Product/ProductDetail"));
 const Slide = React.lazy(() => import("../View/Slide/Slide"));
+const Banners = React.lazy(() => import("../View/Banners/Banners"));
 
 const router = [
   {
@@ -61,6 +62,10 @@ const router = [
   {
     path: "/slide-hero",
     element: <Slide />,
+  },
+  {
+    path: "/banners",
+    element: <Banners />,
   },
 ];
 

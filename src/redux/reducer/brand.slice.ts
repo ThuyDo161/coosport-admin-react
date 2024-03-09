@@ -66,8 +66,10 @@ export const brandSlice = createSlice({
         const data = action.payload.brand;
         if (data && data.length > 0) {
           state.brand = data;
-          state.loading = "succeeded";
+        } else {
+          state.brand = [];
         }
+        state.loading = "succeeded";
       }
     );
 

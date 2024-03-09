@@ -64,8 +64,10 @@ export const supplierSlice = createSlice({
         const data = action.payload.supplier;
         if (data && data.length > 0) {
           state.supplier = data;
-          state.loading = "succeeded";
+        } else {
+          state.supplier = [];
         }
+        state.loading = "succeeded";
       }
     );
 
