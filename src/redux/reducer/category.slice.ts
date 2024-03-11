@@ -66,8 +66,10 @@ export const categorySlice = createSlice({
         const data = action.payload.category;
         if (data && data.length > 0) {
           state.category = data;
-          state.loading = "succeeded";
+        } else {
+          state.category = [];
         }
+        state.loading = "succeeded";
       }
     );
 

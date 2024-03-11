@@ -121,8 +121,10 @@ export const productsSlice = createSlice({
         const data = action.payload.product;
         if (data && data.length > 0) {
           state.allProduct = data;
-          state.loading = "succeeded";
+        } else {
+          state.allProduct = [];
         }
+        state.loading = "succeeded";
       }
     );
 
@@ -132,8 +134,10 @@ export const productsSlice = createSlice({
         const data = action.payload.product;
         if (data && data.length > 0) {
           state.allProduct = data;
-          state.loading = "succeeded";
+        } else {
+          state.allProduct = [];
         }
+        state.loading = "succeeded";
       }
     );
 
@@ -143,8 +147,10 @@ export const productsSlice = createSlice({
         const data = action.payload.product;
         if (data && data.length > 0) {
           state.allProduct = data;
-          state.loading = "succeeded";
+        } else {
+          state.allProduct = [];
         }
+        state.loading = "succeeded";
       }
     );
     builder.addCase(getProductsDetail.pending, (state) => {
@@ -156,11 +162,10 @@ export const productsSlice = createSlice({
         const data = action.payload.product;
         if (data && data.length > 0) {
           state.allProduct = data;
-          state.loading = "succeeded";
         } else {
           state.allProduct = [];
-          state.loading = "succeeded";
         }
+        state.loading = "succeeded";
       }
     );
 

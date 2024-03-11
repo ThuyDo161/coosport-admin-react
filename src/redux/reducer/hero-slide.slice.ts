@@ -75,8 +75,10 @@ export const slideSlice = createSlice({
         const data = action.payload.slide;
         if (data && data.length > 0) {
           state.slide = data;
-          state.loading = "succeeded";
+        } else {
+          state.slide = [];
         }
+        state.loading = "succeeded";
       }
     );
 

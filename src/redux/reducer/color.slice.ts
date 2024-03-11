@@ -66,8 +66,10 @@ export const colorSlice = createSlice({
         const data = action.payload.color;
         if (data && data.length > 0) {
           state.color = data;
-          state.loading = "succeeded";
+        } else {
+          state.color = [];
         }
+        state.loading = "succeeded";
       }
     );
 

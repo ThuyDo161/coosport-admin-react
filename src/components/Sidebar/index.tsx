@@ -85,6 +85,14 @@ const SideBar = () => {
             <span>Slides</span>
           </NavLink>
         </li>
+        <li className="sidebar-nav-item">
+          <NavLink to="banners" className="sidebar-nav-link">
+            <div>
+              <i className="fa-solid fa-panorama" />
+            </div>
+            <span>Banners</span>
+          </NavLink>
+        </li>
       </ul>
     </div>
   );

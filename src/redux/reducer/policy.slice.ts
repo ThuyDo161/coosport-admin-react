@@ -37,8 +37,10 @@ export const policySlice = createSlice({
         const data = action.payload.policy;
         if (data && data.length > 0) {
           state.policy = data;
-          state.loading = "succeeded";
+        } else {
+          state.policy = [];
         }
+        state.loading = "succeeded";
       }
     );
 

@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "sweetalert2/dist/sweetalert2.css";
 import "./admin.css";
-import "./assets/fontawesome-free-6.1.0-web/css/all.min.css";
+// import "./assets/fontawesome-free-6.1.0-web/css/all.min.css";
 import Navbar from "./components/Navbar";
 import SideBar from "./components/Sidebar";
 import Router from "./routes/Router";

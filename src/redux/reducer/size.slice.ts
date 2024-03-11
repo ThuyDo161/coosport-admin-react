@@ -59,16 +59,15 @@ export const SizeSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(
-      getSizes.fulfilled,
-      (state, action: PayloadAction<any>) => {
-        const data = action.payload.size;
-        if (data && data.length > 0) {
-          state.size = data;
-          state.loading = "succeeded";
-        }
+    builder.addCase(getSizes.fulfilled, (state, action: PayloadAction<any>) => {
+      const data = action.payload.size;
+      if (data && data.length > 0) {
+        state.size = data;
+      } else {
+        state.size = [];
       }
-    );
+      state.loading = "succeeded";
+    });
 
     builder.addCase(createSizes.fulfilled, (state) => {
       state.loading = "idle";
@@ -82,7 +81,6 @@ export const SizeSlice = createSlice({
       state.loading = "idle";
       state.size = [];
     });
-
 
     builder.addCase(getSizes.rejected, (state) => {
       state.loading = "failed";
