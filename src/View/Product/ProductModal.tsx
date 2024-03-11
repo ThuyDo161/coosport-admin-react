@@ -1,7 +1,9 @@
 import { CardMedia, MenuItem, Select, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
 import slugify from "slugify";
+import imgDefault from "../../assets/image-default.png";
 import Modal from "../../components/Modal/Modal";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import { getBrands } from "../../redux/reducer/brand.slice";
@@ -9,8 +11,6 @@ import { getCategories } from "../../redux/reducer/category.slice";
 import { getColors } from "../../redux/reducer/color.slice";
 import { productInterface } from "../../redux/reducer/products.slice";
 import { getSizes } from "../../redux/reducer/size.slice";
-import imgDefault from "../../assets/image-default.png";
-import { useParams } from "react-router-dom";
 
 type ProductModalType = {
   type: "create" | "update" | "createChild";
@@ -39,7 +39,9 @@ const ProductModal = ({
   const { id } = useParams();
   const parent = productStore.find((item) => item.product_id === id);
 
-  const [productname, setProductname] = useState(data?.productname || "");
+  const [productname, setProductname] = useState(
+    (id ? parent?.productname : data?.productname) || ""
+  );
   const [category_id, setCategory_id] = useState(
     data?.category_id || parent?.category_id || ""
   );
@@ -54,6 +56,7 @@ const ProductModal = ({
   );
   const [color, setColor] = useState(data?.color || "");
   const [size, setSize] = useState(data?.size || "");
+  const [count, setCount] = useState(data?.count || "");
   const [description, setDescription] = useState(
     data?.description || parent?.description || ""
   );
@@ -81,7 +84,11 @@ const ProductModal = ({
     imgFile2.current ? imgArray.push(imgFile2.current) : null;
     const dataEncryption: productInterface = {
       product_id: data?.product_id || "",
-      productname,
+      productname: parent_id
+        ? `${productname}-${
+            colorStore.color.find((c) => c.color_id === color)?.colorname
+          }-${sizeStore.size.find((s) => s.size_id === size)?.sizename}`
+        : productname,
       category_id,
       brand_id,
       pricesell,
@@ -91,6 +98,7 @@ const ProductModal = ({
       description,
       img: imgArray,
       parent_id,
+      count: Number(count),
       product_slug: parent_id ? "" : slugify(productname.toLowerCase(), "_"),
     };
     onSubmit(dataEncryption, type);
@@ -114,57 +122,63 @@ const ProductModal = ({
           type="text"
         />
       ) : null}
-
-      <TextField
-        required
-        fullWidth
-        variant="outlined"
-        value={productname}
-        onChange={(e) => setProductname(e.target.value)}
-        label="Tên sản phẩm"
-        type="text"
-      />
-      <Select
-        required
-        fullWidth
-        labelId="brand"
-        value={brand_id}
-        inputProps={{ readOnly: parent_id ? true : false }}
-        onChange={(e) => setBrand_id(e.target.value)}
-        defaultValue=""
-        displayEmpty
-      >
-        <MenuItem value="">Thương hiệu</MenuItem>
-        {brandStore.brand.map((item) => (
-          <MenuItem key={item.brand_id} value={item.brand_id}>
-            {item.brandname}
-          </MenuItem>
-        ))}
-      </Select>
-      <Select
-        required
-        fullWidth
-        labelId="category"
-        inputProps={{ readOnly: parent_id ? true : false }}
-        value={category_id}
-        onChange={(e) => setCategory_id(e.target.value)}
-        defaultValue=""
-        displayEmpty
-      >
-        <MenuItem value="">Loại sản phẩm</MenuItem>
-        {categoryStore.category.map((item) => (
-          <MenuItem key={item.category_id} value={item.category_id}>
-            {item.categoryname}
-          </MenuItem>
-        ))}
-      </Select>
       {!parent_id && (
         <TextField
           required
           fullWidth
           variant="outlined"
-          value={priceentry}
-          inputProps={{ readOnly: parent_id ? true : false }}
+          value={productname}
+          onChange={(e) => setProductname(e.target.value)}
+          label="Tên sản phẩm"
+          type="text"
+        />
+      )}
+      {!parent_id && (
+        <Select
+          required
+          fullWidth
+          labelId="brand"
+          value={brand_id}
+          onChange={(e) => setBrand_id(e.target.value)}
+          defaultValue=""
+          displayEmpty
+        >
+          <MenuItem value="">Thương hiệu</MenuItem>
+          {brandStore.brand.map((item) => (
+            <MenuItem key={item.brand_id} value={item.brand_id}>
+              {item.brandname}
+            </MenuItem>
+          ))}
+        </Select>
+      )}
+      {!parent_id && (
+        <Select
+          required
+          fullWidth
+          labelId="category"
+          value={category_id}
+          onChange={(e) => setCategory_id(e.target.value)}
+          defaultValue=""
+          displayEmpty
+        >
+          <MenuItem value="">Loại sản phẩm</MenuItem>
+          {categoryStore.category.map((item) => (
+            <MenuItem key={item.category_id} value={item.category_id}>
+              {item.categoryname}
+            </MenuItem>
+          ))}
+        </Select>
+      )}
+      {!parent_id && (
+        <TextField
+          required
+          fullWidth
+          variant="outlined"
+          value={Number(priceentry)}
+          inputProps={{
+            min: 0,
+            step: 500,
+          }}
           onChange={(e) => setPriceentry(e.target.value)}
           label="Giá nhập"
           type="number"
@@ -175,8 +189,11 @@ const ProductModal = ({
           required
           fullWidth
           variant="outlined"
-          inputProps={{ readOnly: parent_id ? true : false }}
-          value={pricesell}
+          inputProps={{
+            min: 0,
+            step: 500,
+          }}
+          value={Number(pricesell)}
           onChange={(e) => setPricesell(e.target.value)}
           label="Giá bán"
           type="number"
@@ -223,17 +240,16 @@ const ProductModal = ({
           </MenuItem>
         ))}
       </Select>
-      {type === "update" ? (
-        <TextField
-          required
-          fullWidth
-          variant="filled"
-          label="Số lượng"
-          value={data?.count || ""}
-          InputProps={{ readOnly: true }}
-          type="number"
-        />
-      ) : null}
+      <TextField
+        required
+        fullWidth
+        variant="outlined"
+        label="Số lượng"
+        value={Number(count)}
+        inputProps={{ min: 0 }}
+        type="number"
+        onChange={(e) => setCount(e.target.value)}
+      />
       {parent_id || type === "createChild" ? null : (
         <Box sx={{ mt: 1, mb: 2 }}>
           <input

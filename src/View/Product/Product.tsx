@@ -1,7 +1,7 @@
 import { Image } from "@mantine/core";
 import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Column } from "react-table";
 import TableData from "../../components/TableData/TableData";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
@@ -10,7 +10,6 @@ import {
   deleteProduct,
   getProducts,
   productInterface,
-  setLoading,
   updateProduct,
 } from "../../redux/reducer/products.slice";
 import {
@@ -76,14 +75,17 @@ const Product = () => {
     {
       Header: "Giá nhập",
       accessor: "priceentry",
+      Cell: ({ row }: any) => Number(row.values.priceentry).toLocaleString(),
     },
     {
       Header: "Giá bán",
       accessor: "pricesell",
+      Cell: ({ row }: any) => Number(row.values.pricesell).toLocaleString(),
     },
     {
       Header: "Số lượng",
-      accessor: "count",
+      accessor: "total_count",
+      Cell: ({ row }: any) => Number(row.values.total_count).toLocaleString(),
     },
     {
       Header: "Thao tác",
