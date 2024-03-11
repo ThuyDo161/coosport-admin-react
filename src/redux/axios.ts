@@ -1,6 +1,6 @@
 import axios from "axios";
 const API = axios.create({
-  baseURL: `http://localhost:8080/PHP/coosport-api/api/`,
+  baseURL: `https://vuorder.com/coosport-server/api/`,
 });
 
 export default API;

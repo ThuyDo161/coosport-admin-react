@@ -37,7 +37,7 @@ function User() {
   loadTheme();
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <BrowserRouter>
+      <BrowserRouter basename="admin">
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route
