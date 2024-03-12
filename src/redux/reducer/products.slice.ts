@@ -83,6 +83,7 @@ export interface productInterface {
   img?: string[] | any[];
   product_slug: string;
   parent_id?: string | null;
+  total_count?: string;
 }
 
 interface productState {

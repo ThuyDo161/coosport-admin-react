@@ -1,14 +1,12 @@
-import { Button, InputLabel, MenuItem, Select, TextField } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
+import { Button } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Column } from "react-table";
-import Modal from "../../components/Modal/Modal";
 import TableData from "../../components/TableData/TableData";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import {
   createProduct,
   deleteProduct,
-  getProducts,
   getProductsDetail,
   productInterface,
   setLoading,
@@ -64,14 +62,17 @@ const ProductDetail = () => {
     {
       Header: "Giá nhập",
       accessor: "priceentry",
+      Cell: ({ row }: any) => Number(row.values.priceentry).toLocaleString(),
     },
     {
       Header: "Giá bán",
       accessor: "pricesell",
+      Cell: ({ row }: any) => Number(row.values.pricesell).toLocaleString(),
     },
     {
       Header: "Số lượng",
       accessor: "count",
+      Cell: ({ row }: any) => Number(row.values.count).toLocaleString(),
     },
     {
       Header: "Thao tác",
