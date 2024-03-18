@@ -18,6 +18,7 @@ import {
   messageSave,
 } from "../../utils/GlobalFunction";
 import ProductModal from "./ProductModal";
+import { Image } from "@mantine/core";
 
 const ProductDetail = () => {
   const productStore = useAppSelector((state) => state.productModal);
@@ -28,9 +29,23 @@ const ProductDetail = () => {
   const productParent = productStore.allProduct.find(
     (item) => item.product_id === id
   );
-  const products = productStore.allProduct.filter(
-    (item) => item.product_id !== id
-  );
+  const products = productStore.allProduct
+    .filter((item) => item.product_id !== id)
+    .map((prod) => ({
+      ...prod,
+      customImg: (
+        <div style={{ width: 120, marginLeft: "auto", marginRight: "auto" }}>
+          <Image
+            width="120"
+            height="180"
+            radius="md"
+            src={prod.img ? prod.img[0] : null}
+            alt={prod.productname}
+            withPlaceholder
+          />
+        </div>
+      ),
+    }));
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -48,6 +63,11 @@ const ProductDetail = () => {
       Header: "Tên sản phẩm",
       accessor: "productname",
       width: "20%",
+    },
+    {
+      Header: "Hình ảnh",
+      accessor: "customImg",
+      width: "10%",
     },
     {
       Header: "Loại sản phẩm",
