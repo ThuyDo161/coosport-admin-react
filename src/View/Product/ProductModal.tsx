@@ -250,88 +250,87 @@ const ProductModal = ({
         type="number"
         onChange={(e) => setCount(e.target.value)}
       />
-      {parent_id || type === "createChild" ? null : (
-        <Box sx={{ mt: 1, mb: 2 }}>
-          <input
-            type="file"
-            id="fileEdit"
-            hidden
-            onChange={(e) => {
-              if (e.target.files![0].type!.split("/")[0] === "image") {
-                let path = URL.createObjectURL(e.target.files![0]);
-                let fileReader = new FileReader();
-                fileReader.readAsDataURL(e.target.files![0]);
 
-                fileReader.onload = (event) => {
-                  imgFile1.current = {
-                    id: 1,
-                    file: event.target?.result,
-                    name: e.target.files![0]!.name,
-                  };
-                };
-                setImg1(path);
-              } else {
-                e.target.value = "";
-              }
-            }}
-            accept="image/*"
-          />
-          <label htmlFor="fileEdit">
-            <CardMedia
-              component="img"
-              style={{
-                maxHeight: 243,
-                float: "left",
-                objectFit: "cover",
-                width: "auto",
-                maxWidth: 400,
-                marginRight: 8,
-              }}
-              image={img1 || imgDefault}
-              alt={productname + img1}
-            />
-          </label>
-          <input
-            type="file"
-            id="fileEdit2"
-            hidden
-            onChange={(e) => {
-              if (e.target.files![0].type!.split("/")[0] === "image") {
-                let path = URL.createObjectURL(e.target.files![0]);
-                let fileReader = new FileReader();
-                fileReader.readAsDataURL(e.target.files![0]);
+      <Box sx={{ mt: 1, mb: 2 }}>
+        <input
+          type="file"
+          id="fileEdit"
+          hidden
+          onChange={(e) => {
+            if (e.target.files![0].type!.split("/")[0] === "image") {
+              let path = URL.createObjectURL(e.target.files![0]);
+              let fileReader = new FileReader();
+              fileReader.readAsDataURL(e.target.files![0]);
 
-                fileReader.onload = (event) => {
-                  imgFile2.current = {
-                    id: 2,
-                    file: event.target?.result,
-                    name: e.target.files![0]!.name,
-                  };
+              fileReader.onload = (event) => {
+                imgFile1.current = {
+                  id: 1,
+                  file: event.target?.result,
+                  name: e.target.files![0]!.name,
                 };
-                setImg2(path);
-              } else {
-                e.target.value = "";
-              }
+              };
+              setImg1(path);
+            } else {
+              e.target.value = "";
+            }
+          }}
+          accept="image/*"
+        />
+        <label htmlFor="fileEdit">
+          <CardMedia
+            component="img"
+            style={{
+              maxHeight: 243,
+              float: "left",
+              objectFit: "cover",
+              width: "auto",
+              maxWidth: 400,
+              marginRight: 8,
             }}
-            accept="image/*"
+            image={img1 || imgDefault}
+            alt={productname + img1}
           />
-          <label htmlFor="fileEdit2">
-            <CardMedia
-              component="img"
-              style={{
-                maxHeight: 243,
-                float: "left",
-                objectFit: "cover",
-                width: "auto",
-                maxWidth: 400,
-                marginRight: 8,
-              }}
-              image={img2 || imgDefault}
-              alt={productname + img2}
-            />
-          </label>
-        </Box>
-      )}
+        </label>
+        <input
+          type="file"
+          id="fileEdit2"
+          hidden
+          onChange={(e) => {
+            if (e.target.files![0].type!.split("/")[0] === "image") {
+              let path = URL.createObjectURL(e.target.files![0]);
+              let fileReader = new FileReader();
+              fileReader.readAsDataURL(e.target.files![0]);
+
+              fileReader.onload = (event) => {
+                imgFile2.current = {
+                  id: 2,
+                  file: event.target?.result,
+                  name: e.target.files![0]!.name,
+                };
+              };
+              setImg2(path);
+            } else {
+              e.target.value = "";
+            }
+          }}
+          accept="image/*"
+        />
+        <label htmlFor="fileEdit2">
+          <CardMedia
+            component="img"
+            style={{
+              maxHeight: 243,
+              float: "left",
+              objectFit: "cover",
+              width: "auto",
+              maxWidth: 400,
+              marginRight: 8,
+            }}
+            image={img2 || imgDefault}
+            alt={productname + img2}
+          />
+        </label>
+      </Box>
 
       {!parent_id && (
         <TextField
